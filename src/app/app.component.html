@@ -1,0 +1,32 @@
+<div *ngIf="voiceActiveSectionDisabled; else voicesection;">
+  <button type="button" (click)="startVoiceRecognition()">Record</button>
+</div>
+<ng-template #voicesection>
+  <ng-container
+    *ngIf="!voiceActiveSectionError; else failure">
+    <ng-container
+      *ngIf="voiceText; else start">
+        <span>{{voiceText}}</span>
+    </ng-container>
+    <ng-template #start>
+      <ng-container
+        *ngIf="voiceActiveSectionListening; else beginning">
+        <span>Listening...</span>
+      </ng-container>
+      <ng-template #beginning>
+        <span>Please wait...</span>
+      </ng-template>
+    </ng-template>
+  </ng-container>
+  <ng-template #failure>
+    <span>Didn't catch that</span>
+    <div>
+      <a
+        class="btn btn-secondary small"
+        (click)="startVoiceRecognition()">Try again</a>
+    </div>
+  </ng-template>
+  <div>
+    <button (click)="closeVoiceRecognition()">Close</button>
+  </div>
+</ng-template>
