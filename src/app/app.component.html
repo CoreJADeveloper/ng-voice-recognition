@@ -14,19 +14,15 @@
         <span>Listening...</span>
       </ng-container>
       <ng-template #beginning>
-        <span>Please wait...</span>
+        <span>Start talking...</span>
       </ng-template>
     </ng-template>
   </ng-container>
   <ng-template #failure>
     <span>Didn't catch that</span>
-    <div>
-      <a
-        class="btn btn-secondary small"
-        (click)="startVoiceRecognition()">Try again</a>
-    </div>
   </ng-template>
   <div>
     <button (click)="closeVoiceRecognition()">Close</button>
+    <button (click)="startVoiceRecognition()">Restart</button>
   </div>
 </ng-template>

@@ -18,7 +18,11 @@ export class AppComponent {
 
 	initializeVoiceRecognitionCallback(): void {
 		annyang.addCallback('error', (err) => {
-			if (this.voiceText === undefined) {
+      if(err.error === 'network'){
+        this.voiceText = "Internet is require";
+        annyang.abort();
+        this.ngZone.run(() => this.voiceActiveSectionSuccess = true);
+      } else if (this.voiceText === undefined) {
 				this.ngZone.run(() => this.voiceActiveSectionError = true);
 				annyang.abort();
 			}
@@ -55,14 +59,14 @@ export class AppComponent {
 		this.voiceActiveSectionSuccess = false;
     this.voiceText = undefined;
 
-		this.initializeVoiceRecognitionCallback();
-
 		if (annyang) {
 			let commands = {
 				'demo-annyang': () => { }
 			};
 
 			annyang.addCommands(commands);
+
+      this.initializeVoiceRecognitionCallback();
 
 			annyang.start({ autoRestart: false });
 		}
